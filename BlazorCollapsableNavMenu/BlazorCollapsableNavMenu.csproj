@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Components\NavMenu\" />
     <Folder Include="Data\" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Update="Shared/NavMenu.razor.css" CssScope="unique-navmenu-cssscope" />
+    <None Update="Components/NavMenu/NavItem.razor.css" CssScope="unique-navmenu-cssscope" />
+  </ItemGroup>
+  
 </Project>

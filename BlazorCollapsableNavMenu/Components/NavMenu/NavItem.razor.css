@@ -1,0 +1,10 @@
+﻿/*
+   This NavItem.razor.css file is needed (empty OK) to inherit styles from the parent component, i.e. NavMenu.
+   This is because of CSS isolation feature introduced in .NET 5. Note that styles in question are defined
+   in NavMenu.razor.css and no longer in the site.css.
+   Also, the following .csproj entries are needed in order for NavItem and NavMenu components to share styles:
+     <ItemGroup>
+       <None Update="Shared/NavMenu.razor.css" CssScope="unique-navmenu-cssscope" />
+       <None Update="Components/NavMenu/NavItem.razor.css" CssScope="unique-navmenu-cssscope" />
+     </ItemGroup>
+*/
