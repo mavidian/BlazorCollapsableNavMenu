@@ -1,0 +1,61 @@
+﻿
+<li class="@LiClass">
+    <NavLink @attributes="GetNavLinAttributes()" @onclick="@OnClick">
+        @* @attributes (intead of discrete attributes) to prevent null href attribute, which NavLink matches against any route and sets active class *@
+        <span class="@Icon" aria-hidden="true" /> @Title
+    </NavLink>
+</li>
+
+
+@code {
+    /// <summary>
+    /// Class attribute (CSS) of li element that represents padding (to follow nav-item class), e.g. "px-4 py-0"; default is "px-3".
+    /// </summary>
+    [Parameter] public string Padding { get; set; }
+    /// <summary>
+    /// Class attribute (CSS) of NavLink element that represents size (to follow nav-link class), e.g. "small"; default is null;
+    /// </summary>
+    [Parameter] public string Size { get; set; }
+    /// <summary>
+    /// Href attribute of NavLink element, i.e. the page route; default is null.
+    /// </summary>
+    [Parameter] public string Href { get; set; }
+    /// <summary>
+    /// Onclick attribute of NavLink element, i.e. event handler for the onclick event (DOM).
+    /// </summary>
+    [Parameter] public Action OnClick { get; set; }
+    /// <summary>
+    /// Class attribute (CSS) of span element i.e. icon to the left of text; default is "oi oi-guestion-mark".
+    /// </summary>
+    [Parameter] public string Icon { get; set; }
+    /// <summary>
+    /// Title text to appear on the nav bar; default &lt;enter title&gt;.
+    /// </summary>
+    [Parameter] public string Title { get; set; }
+    /// <summary>
+    /// Match attribute of NavLink element, e.g. "NavLinkMatch.All"; default is null.
+    /// </summary>
+    [Parameter] public NavLinkMatch Match { get; set; }
+
+    private string LiClass { get; set; }
+    private string NavLinkClass { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        LiClass = "nav-item " + (Padding ?? "px-3");
+        NavLinkClass = "nav-link" + (Size == null ? null : " " + Size);
+        Icon = Icon ?? "oi oi-question-mark";
+        Title = Title ?? "<enter title>";
+    }
+
+    private Dictionary<string, object> GetNavLinAttributes()
+    {
+        var retVal = new Dictionary<string, object> { { "class", NavLinkClass },
+                                                     { "Match", Match }
+                                                   };
+        if (Href != null) retVal.Add("href", Href);
+        return retVal;
+    }
+}

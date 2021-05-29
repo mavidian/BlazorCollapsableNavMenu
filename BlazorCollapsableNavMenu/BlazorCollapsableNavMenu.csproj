@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Components\NavMenu\" />
     <Folder Include="Data\" />
   </ItemGroup>
 
