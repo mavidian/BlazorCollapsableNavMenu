@@ -1,0 +1,12 @@
+﻿@page "/{submenu}/{option}"
+
+<h3>@Submenu Option @Option</h3>
+
+<p>This is a page asked for by option @Option from @Submenu.</p>
+
+@code {
+   [Parameter]
+   public string Submenu { get; set; }
+   [Parameter]
+   public string Option { get; set; }
+}

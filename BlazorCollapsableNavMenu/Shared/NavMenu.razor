@@ -7,32 +7,53 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
         <NavItem Title="Home" Icon="oi oi-home" Href="" Match="NavLinkMatch.All" />
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
+        <NavItem Title="Sample Page" Icon="oi oi-file" Href="samplepage" />
+        <NavItem Title="Submenu with Pages 1" Icon="@GetSubmenuIcon(SubMenu.Sub1)" OnClick="() => FlipSubmenu(SubMenu.Sub1)" />
+        @if (SubmenuOn[SubMenu.Sub1])
+        {
+            <NavItem Title="Menu 1 Option 1" Href="SubmenuOne/One" Padding="px-4 py-0" Size="small" />
+            <NavItem Title="Menu 1 Option 2" Href="SubmenuOne/Two" Padding="px-4 py-0" Size="small" />
+            <NavItem Title="Menu 1 Option 3" Href="SubmenuOne/Three" Padding="px-4 py-0" Size="small" />
+        }
+        <NavItem Title="Another Sample Page" Icon="oi oi-file" Href="samplepage" />
+        <NavItem Title="Submenu with Pages 2" Icon="@GetSubmenuIcon(SubMenu.Sub2)" OnClick="() => FlipSubmenu(SubMenu.Sub2)" />
+        @if (SubmenuOn[SubMenu.Sub2])
+        {
+            <NavItem Title="Menu 2 Option 1" Icon="oi oi-minus" Href="SubmenuTwo/One" Padding="px-4 py-0" Size="small" />
+            <NavItem Title="Menu 2 Option 2" Icon="oi oi-minus" Href="SubmenuTwo/Two" Padding="px-4 py-0" Size="small" />
+            <NavItem Title="Menu 2 Option 3" Icon="oi oi-minus" Href="SubmenuTwo/Three" Padding="px-4 py-0" Size="small" />
+            <NavItem Title="Menu 2 Option 4" Icon="oi oi-minus" Href="SubmenuTwo/Four" Padding="px-4 py-0" Size="small" />
+        }
+        <NavItem Title="Yet another Page" Icon="oi oi-file" Href="samplepage" />
     </ul>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+   private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+   private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+   private void ToggleNavMenu()
+   {
+       collapseNavMenu = !collapseNavMenu;
+   }
+
+
+   private enum SubMenu { Sub1, Sub2 }
+   private Dictionary<SubMenu, bool> SubmenuOn = new Dictionary<SubMenu, bool>
+            {  //both Sub1 & Sub2 collapsed
+                { SubMenu.Sub1, false },
+                { SubMenu.Sub2, false }
+            };
+
+   private void FlipSubmenu(SubMenu subMenu)
+   {
+       SubmenuOn[subMenu] = !SubmenuOn[subMenu];
+       collapseNavMenu = true;  // do not collapse NavMenu on small viewports
+   }
+
+   private string GetSubmenuIcon(SubMenu subMenu) => SubmenuOn[subMenu] ? "oi oi-caret-bottom" : "oi oi-caret-right";
+
+
 }
