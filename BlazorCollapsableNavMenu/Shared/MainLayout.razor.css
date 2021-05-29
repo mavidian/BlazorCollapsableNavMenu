@@ -51,8 +51,14 @@
     }
 
     .sidebar {
-        width: 250px;
+        width: 265px;
         height: 100vh;
+        position: sticky;
+        top: 0;
+        overflow: auto;
+    }
+
+    .sidebar ::deep .top-row {
         position: sticky;
         top: 0;
     }
