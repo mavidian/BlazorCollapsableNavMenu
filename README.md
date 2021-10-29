@@ -1,5 +1,5 @@
 # BlazorCollapsableNavMenu
-A simple blazore server-side app to demonstrate collapsable submenus.
+A simple blazor server-side app to demonstrate collapsable submenus.
 
 ## CSS Isolation
 
